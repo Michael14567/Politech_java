@@ -28,24 +28,38 @@ class HuffmanCoder {
 
     public void decode(String inputFile, String outputFile) throws IOException {
         try (DataInputStream in = new DataInputStream(new FileInputStream(inputFile))) {
-            String frequencyMap = in.readUTF();
+            // Читаем закодированные данные
+            String frequencyMapString = in.readUTF();
             String encodedText = in.readUTF();
-
-            Node root = tree.buildTree(parseFrequencyMap(frequencyMap));
+    
+            // Восстанавливаем карту частот из строки
+            Map<Character, Integer> frequencyMap = parseFrequencyMap(frequencyMapString);
+    
+            // Построение дерева Хаффмана
+            Node root = tree.buildTree(frequencyMap);
+    
+            // Декодируем текст
             StringBuilder decodedText = new StringBuilder();
             Node current = root;
-
+    
             for (char bit : encodedText.toCharArray()) {
-                current = bit == '0' ? current.left : current.right;
-                if (current.isLeaf()) {
+                if (current == null) {
+                    throw new IllegalStateException("Некорректная структура дерева Хаффмана");
+                }
+    
+                current = (bit == '0') ? current.left : current.right;
+    
+                if (current != null && current.isLeaf()) {
                     decodedText.append(current.character);
                     current = root;
                 }
             }
-
+    
+            // Сохраняем раскодированный текст в файл
             Files.write(Paths.get(outputFile), decodedText.toString().getBytes());
         }
     }
+    
 
     private Map<Character, Integer> buildFrequencyMap(String text) {
         Map<Character, Integer> frequencyMap = new HashMap<>();
