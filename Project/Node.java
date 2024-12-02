@@ -8,17 +8,14 @@ class Node implements Comparable<Node> {
     public Node(char character, int frequency) {
         this.character = character;
         this.frequency = frequency;
-        this.left = null;
-        this.right = null;
+    }
+
+    public boolean isLeaf() {
+        return (left == null && right == null);
     }
 
     @Override
     public int compareTo(Node other) {
         return Integer.compare(this.frequency, other.frequency);
-    }
-
-    // Проверка, является ли узел листом
-    public boolean isLeaf() {
-        return this.left == null && this.right == null;
     }
 }
