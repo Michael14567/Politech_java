@@ -38,7 +38,7 @@ public class FinalExamples {
         Child child = new Child();
         child.display(); // Вызывает метод из Parent, так как переопределение запрещено
 
-        // Демонстрация использования final-класса
+
         FinalClass finalClass = new FinalClass();
         finalClass.show();
 
