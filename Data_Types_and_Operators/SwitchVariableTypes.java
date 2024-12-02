@@ -1,3 +1,4 @@
+package Data_Types_and_Operators;
 public class SwitchVariableTypes {
     public static void main(String[] args) {
         // Пример с int

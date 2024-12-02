@@ -1,6 +1,7 @@
 // Rectangle и Square не связаны через наследование, а только через общий абстрактный класс Shape.
 //Это гарантирует, что каждая фигура ведёт себя так, как ожидается, и никакая логика не ломается.
 //Функция printArea корректно работает для всех наследников Shape.
+package Data_Types_and_Operators;
 abstract class Shape {
     public abstract double area();
 }
